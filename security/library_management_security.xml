@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="library_user_access" model="res.groups">
+        <field name="name">Library User</field>
+        <field name="category_id" ref="base.module_category_library_management" />
+    </record>
+    <record id="library_manager_access" model="res.groups">
+        <field name="name">Library Manager</field>
+        <field name="category_id" ref="base.module_category_library_management" />
+        
+    </record>
+
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+<menuitem id="book_menu_root" name="Library Management">
+    <menuitem id="author_reservation_menu" name="List">
+        
+       
+        <menuitem id="author_action_menu" action="author_action"/>
+        <menuitem id="reservation_action_menu" action="reservation_action"/>
+
+
+    
+    </menuitem>
+        <menuitem id="book_menu" name="Books">
+            <menuitem id="books_action_menu" action="book_action"/>
+            <menuitem id="copies_action_menu" action="book_copies_action"/>
+
+        </menuitem>
+
+</menuitem>
+
+</odoo>

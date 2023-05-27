@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="proparty_print_badge" model="ir.actions.report">
+        <field name="name">Print Book</field>
+        <field name="model">library.book</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">library_management.book_report</field>
+        <field name="report_file">library_management.book_report</field>
+        <field name="binding_model_id" ref="model_library_book" />
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="book_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+            
+                <t t-foreach="docs" t-as="book">
+                    <div class="page">
+                        <div class="row">
+
+                            <div class="col-xs-12">
+                                <h2 style="border-bottom: none;">
+                                    <span t-field="book.name" />
+                                </h2>
+                                <table class="table table-condensed">
+                                    <style>
+                                    <![CDATA[
+                                    .table th {
+                                        text-align: left;
+                                    }
+                                    ]]>
+                                    </style>
+                                    <tbody>
+                                        <tr>
+                                            <th>Isbn:</th>
+                                            <td>
+                                                <span t-field="book.isbn" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>publication_date:</th>
+                                            <td>
+                                                <span t-field="book.publication_date" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>price</th>
+                                            <td>
+                                                <span t-field="book.price" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>amount</th>
+                                            <td>
+                                                <span t-field="book.amount" />
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px solid black;">
+                                    Authors</h2>
+                                    <t t-call="library_management.authors_table" />
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px solid black;">
+                                    Reservations</h2>
+                                    <t t-call="library_management.reservation_table" />
+
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Total Books</th>
+                    <th>Total price</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td>
+                            <span t-esc="len(docs)" />
+                        </td>
+                        <td>
+                            
+                            <span t-esc="sum(doc.price * doc.amount for doc in docs)" />
+                        </td>
+
+                    </tr>
+                
+            </tbody>
+        </table>
+
+
+            </t>
+        </t>
+    </template>
+
+    <template id="authors_table">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Total books</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="book.author_ids" t-as="author">
+                    <tr>
+                        <td>
+                            <span t-field="author.name" />
+                        </td>
+                        <td>
+                            <span t-field="author.total_books" />
+                        </td>
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+
+    </template>
+
+
+    <template id="reservation_table">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Status</th>
+                    <th>Date From</th>
+                    <th>Return Date</th>
+                    <th>Borrowing Period</th>
+                    <th>Fees</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="book.reservation_ids" t-as="reservation">
+                    <tr>
+                        <td>
+                            <span t-field="reservation.partner_id" />
+                        </td>
+                        <td>
+                            <span t-field="reservation.status" />
+                        </td>
+                        <td>
+                            <span t-field="reservation.date_from" />
+                        </td>
+                        <td>
+                            <span t-field="reservation.return_date" />
+                        </td>
+                        <td>
+                            <span t-field="reservation.borrowing_period" />
+                        </td>
+                        <td>
+                            <span t-field="reservation.fees" />
+                        </td>
+
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+    </template>
+</odoo>

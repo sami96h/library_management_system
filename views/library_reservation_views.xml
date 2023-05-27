@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<odoo>
+
+	<record id="reservation_action" model="ir.actions.act_window">
+		<field name="name">Reservations</field>
+		<field name="res_model">library.reservation</field>
+		<field name="view_mode">tree,form,kanban</field>
+	</record>
+
+    	<record id="library_reservation_view_form" model="ir.ui.view">
+		<field name="name">library.reservation.form</field>
+		<field name="model">library.reservation</field>
+		<field name="arch" type="xml">
+			<form string="Books">
+			<group>       
+                        <field name="partner_id"/>
+                        <field name="price"/>
+						<field name="copy_id" string="Copy ID"/>
+
+
+			</group>
+
+            <group>
+						<field name="date_from" string="Borrowing Date"/>
+                        <field name="return_date"/>
+                        <field name="borrowing_period" string="Borrowing Period"/>
+            </group>
+
+
+			</form>
+		</field>
+	</record>
+
+	<record id="library_reservation_view_tree" model="ir.ui.view">
+		<field name="name">library.reservation.tree</field>
+		<field name="model">library.reservation</field>
+		<field name="arch" type="xml">
+			<tree string="Channel" editable="bottom">
+						
+                        <field name="partner_id"/>
+						<field name="copy_id" string="Copy ID"/>
+
+                        <field name="price"/>
+                        <field name="date_from" string="Borrowing Date"/>
+                        <field name="return_date"/>
+                        <field name="borrowing_period" string="Borrowing Period"/>
+                   		<button name="accept_reservation" type="object" icon="fa-check" attrs="{'invisible': ['|',('status', '=', 'refused'),('status', '=', 'accepted')]}"/>
+        				<button name="refuse_reservation" type="object" icon="fa-times" attrs="{'invisible': ['|',('status', '=', 'refused'),('status', '=', 'accepted')]}"/>
+                        <field name="status" />
+            </tree>
+		</field>
+	</record>
+</odoo>
